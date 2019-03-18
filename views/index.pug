@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+  head
+    title Simple wallet
+
+    link(href='/css/bootstrap.min.css', rel='stylesheet')
+    script(src='/js/jquery.min.js')
+    script(src='/js/bootstrap.min.js')
+
+  body
+    block menu
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a(href='/').navbar-brand Simple Wallet
+  
+        nav.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              a(href='/signin').nav-link Log in
+            li.nav-item
+              a(href='/signup').nav-link Sign up
+
+    .container
+      block content
+        .jumbotron
+          h1 Simple Wallet
+          p.lead
+            | Super simple wallet using the Upvest Blockchain API

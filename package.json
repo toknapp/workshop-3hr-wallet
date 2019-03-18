@@ -20,6 +20,9 @@
   "dependencies": {
     "@upvest/clientele-api": "0.0.7",
     "@upvest/tenancy-api": "0.0.7",
-    "express": "^4.16.4"
+    "bootstrap": "^4.3.1",
+    "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "pug": "^2.0.3"
   }
 }

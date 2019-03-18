@@ -11,3 +11,14 @@ $ npm install @upvest/clientele-api --save
 $ npm install @upvest/tenancy-api --save
 ```
 
+## Step 2 -- Templating, jquery & bootstrap, navbar
+
+```
+npm install pug --save
+
+npm install jquery --save
+npm install bootstrap --save
+
+mkdir views
+touch views/index.pug
+```
