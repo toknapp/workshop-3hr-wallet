@@ -1,0 +1,13 @@
+extends index.pug
+
+block content
+  form.form-signin(action='/login', method='post')
+    h2.form-signin-heading Log in
+
+    div.form-group
+      input.input-block-level(type='text', placeholder='Username', name='username')
+
+    div.form.group
+      input.input-block-level(type='password', placeholder='Password', name='password')
+
+    button.btn.btn-large.btn-primary(type='submit') Log in

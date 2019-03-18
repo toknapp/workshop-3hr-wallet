@@ -36,3 +36,5 @@ npm install express-formidable --save
 
 touch views/signup.pug
 ```
+
+## Step 5 -- Clientele API, echo
