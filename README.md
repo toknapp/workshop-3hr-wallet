@@ -22,3 +22,9 @@ npm install bootstrap --save
 mkdir views
 touch views/index.pug
 ```
+
+## Step 3 -- API keys, tenancy
+
+[Upvest Account Management](https://login.upvest.co/)
+
+Jot down API key, secret & passphrase in your application.
