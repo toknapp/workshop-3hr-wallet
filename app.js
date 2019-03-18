@@ -1,4 +1,5 @@
 const express = require('express')
+const formidable = require('express-formidable')
 const app = express()
 const port = 3000
 
@@ -20,16 +21,37 @@ const tenancy = new UpvestTenancyAPI(
   API_BASEURL, API_KEY, API_SECRET, API_PASSPHRASE
 );
 
-console.log(tenancy);
-
 // Main application
 app.set('view engine', 'pug')
 
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'))
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'))
 
+app.use(formidable())
+
 app.get('/', (req, res) => {
     res.render('index')
+})
+
+// Sign up
+app.get('/signup', (req, res) => {
+    res.render('signup')
+})
+
+app.post('/signup', async(req, res) => {
+    const username = req.fields['username']
+    const password = req.fields['password']
+
+    try {
+        user = await tenancy.users.create(username, password)
+    } catch (error) {
+        console.log(error)
+    }
+
+    res.render('signup', {
+        'username': user.username,
+        'recoverykit': user.recoverykit
+    })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

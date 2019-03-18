@@ -1,0 +1,26 @@
+extends index.pug
+
+block content
+  unless username
+    form.form-signin(action='/signup', method='post')
+      h2.form-signin-heading Sign up
+  
+      div.form-group
+        input.input-block-level(type='text', placeholder='Username', name='username')
+  
+      div.form.group
+        input.input-block-level(type='password', placeholder='Password', name='password')
+  
+      button.btn.btn-large.btn-primary(type='submit') Sign up
+
+  else
+    h2 Successful signup!
+
+    p.
+      Username: #[strong #{username}]
+
+    //- Inline the SVG for our new user
+    p !{recoverykit}
+
+    p You may now 
+      a(href='/login') log in.

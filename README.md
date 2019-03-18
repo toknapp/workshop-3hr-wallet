@@ -28,3 +28,11 @@ touch views/index.pug
 [Upvest Account Management](https://login.upvest.co/)
 
 Jot down API key, secret & passphrase in your application.
+
+## Step 4 -- Sign up
+
+```
+npm install express-formidable --save
+
+touch views/signup.pug
+```
