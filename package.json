@@ -1,0 +1,25 @@
+{
+  "name": "workshop",
+  "version": "1.0.0",
+  "description": "Workshop materials",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toknapp/workshop-3hr-wallet.git"
+  },
+  "author": "Jesper Noehr",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/toknapp/workshop-3hr-wallet/issues"
+  },
+  "homepage": "https://github.com/toknapp/workshop-3hr-wallet#readme",
+  "dependencies": {
+    "@upvest/clientele-api": "0.0.7",
+    "@upvest/tenancy-api": "0.0.7",
+    "express": "^4.16.4"
+  }
+}
