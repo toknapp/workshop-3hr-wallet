@@ -140,4 +140,38 @@ app.get('/wallet/:wallet_id', async(req, res) => {
     })
 })
 
+// https://etherconverter.online/
+
+app.post('/wallet/:wallet_id', async(req, res) => {
+    const token = req.session.oauth_token || false
+
+    if (!token) {
+        return res.redirect('/login')
+    }
+
+    const clientele = new UpvestClienteleAPIFromOAuth2Token(
+        API_BASEURL, token,
+    )
+
+    const recipient = req.fields['recipient']
+    const amount = req.fields['amount']
+    const password = req.fields['password']
+    const asset_id = req.fields['asset_id']
+
+    const fee = 41180000000000
+
+    const tx = await clientele.transactions.create(
+        req.params.wallet_id,
+        password,
+        recipient,
+        asset_id,
+        amount,
+        fee
+    )
+
+    res.render('transaction', {
+        'transaction': tx
+    })
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

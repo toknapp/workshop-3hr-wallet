@@ -1,0 +1,25 @@
+extends index.pug
+
+block content
+  h2 Transaction complete!
+
+  ul
+    li
+      b ID: 
+      span= transaction.id
+    li
+      b Sender: 
+      span= transaction.sender
+    li
+      b Recipient: 
+      span= transaction.recipient
+    li
+      b Amount: 
+      span= transaction.quantity
+    li
+      b Fee: 
+      span= transaction.fee
+
+    li
+      b TxHash: 
+      a(href='https://ropsten.etherscan.io/tx/' + transaction.txhash)= transaction.txhash
