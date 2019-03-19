@@ -122,4 +122,22 @@ app.post('/wallets', async(req, res) => {
     res.redirect('/wallets')
 })
 
+app.get('/wallet/:wallet_id', async(req, res) => {
+    const token = req.session.oauth_token || false
+
+    if (!token) {
+        return res.redirect('/login')
+    }
+
+    const clientele = new UpvestClienteleAPIFromOAuth2Token(
+        API_BASEURL, token,
+    )
+
+    const wallet = await clientele.wallets.retrieve(req.params.wallet_id)
+
+    res.render('wallet', {
+        'wallet': wallet,
+    })
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

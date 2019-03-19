@@ -1,0 +1,33 @@
+extends index.pug
+
+block content
+  h2= wallet.address
+
+  ul
+    li
+      b ID: 
+      span= wallet.id
+    li
+      b Protocol: 
+      span= wallet.protocol
+    li
+      b Asset: 
+      span= wallet.balances[0].name + ', ' + wallet.balances[0].symbol
+
+  hr
+
+  form.form-signin(action='/wallet/' + wallet.id, method='post')
+    h4.form-signin-heading New transaction
+
+    div.form-group
+      input.input-block-level(type='text', placeholder='Recipient address', name='recipient', value='0x687422eea2cb73b5d3e242ba5456b782919afc85')
+
+    div.form-group
+      input.input-block-level(type='number', placeholder='Amount', name='amount', value='100000000000000000')
+
+    div.form.group
+      input.input-block-level(type='password', placeholder='Password', name='password')
+
+    input(type='hidden', name='asset_id', value=wallet.balances[0].asset_id)
+
+    button.btn.btn-large.btn-primary(type='submit') Submit transaction
