@@ -1,0 +1,34 @@
+extends index.pug
+
+block content
+  h2 Wallets
+
+  table(border='1')
+    tr
+      th Protocol
+      th Address
+      th Status
+
+    each wallet in wallets
+      tr
+        td= wallet.protocol
+        td
+          a(href='/wallet/' + wallet.id)= wallet.address || 'unset'
+        td= wallet.status
+
+  hr
+
+  form.form-signin(action='/wallets', method='post')
+    h4.form-signin-heading Create new wallet
+
+    div.form-group
+      select(name='asset_id').form-control
+        option(value='deaaa6bf-d944-57fa-8ec4-2dd45d1f5d3f') Ethereum
+        option(value='51bfa4b5-6499-5fe2-998b-5fb3c9403ac7') Arweave
+        option(value='a3c18f74-935e-5d75-bd3c-ce0fb5464414') Bitcoin
+        option(value='cfc59efb-3b21-5340-ae96-8cadb4ce31a8') Test ERC20 Token
+
+    div.form.group
+      input.input-block-level(type='password', placeholder='Password', name='password')
+
+    button.btn.btn-large.btn-primary(type='submit') Create

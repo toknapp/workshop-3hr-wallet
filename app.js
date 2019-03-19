@@ -18,7 +18,7 @@ const API_OAUTH_ID = 'cyJqUWANySJXmu37FUKTD7M5x7F7Rz4W6LzRIkjF'
 const API_OAUTH_SECRET = '6cGjSJYAFORez2UxYSeYuJDzGCyS4o5nPAwq9X0gs2cmJbLTCsuxHPtYZSdCmFYibglYOW7lRwHJ8pKz5neqgn0XinQIp9i2ge5WZf3XeB7mIzBpJNTLFu2cXEQWO2tP'
 
 const { UpvestTenancyAPI } = require('@upvest/tenancy-api')
-const { UpvestClienteleAPI } = require('@upvest/clientele-api')
+const { UpvestClienteleAPI, UpvestClienteleAPIFromOAuth2Token } = require('@upvest/clientele-api')
 
 const tenancy = new UpvestTenancyAPI(
   API_BASEURL, API_KEY, API_SECRET, API_PASSPHRASE
@@ -80,6 +80,44 @@ app.post('/login', async(req, res) => {
     const echo = await clientele.echo('foobar')
 
     req.session.oauth_token = await clientele.getCachedToken()
+
+    res.redirect('/wallets')
+})
+
+app.get('/wallets', async(req, res) => {
+    const token = req.session.oauth_token || false
+
+    if (!token) {
+        return res.redirect('/login')
+    }
+
+    const clientele = new UpvestClienteleAPIFromOAuth2Token(
+        API_BASEURL, token,
+    )
+
+    var wallets = []
+    for await (const wallet of clientele.wallets.list()) {
+        wallets.push(wallet)
+    }
+
+    res.render('wallets', {'wallets': wallets})
+})
+
+app.post('/wallets', async(req, res) => {
+    const token = req.session.oauth_token || false
+
+    if (!token) {
+        return res.redirect('/login')
+    }
+
+    const clientele = new UpvestClienteleAPIFromOAuth2Token(
+        API_BASEURL, token,
+    )
+
+    const password = req.fields['password']
+    const asset_id = req.fields['asset_id']
+
+    const wallet = await clientele.wallets.create(asset_id, password, null)
 
     res.redirect('/wallets')
 })
