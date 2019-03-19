@@ -18,11 +18,12 @@
   },
   "homepage": "https://github.com/toknapp/workshop-3hr-wallet#readme",
   "dependencies": {
-    "@upvest/clientele-api": "0.0.7",
+    "@upvest/clientele-api": "0.0.8",
     "@upvest/tenancy-api": "0.0.7",
     "bootstrap": "^4.3.1",
     "express": "^4.16.4",
     "express-formidable": "^1.2.0",
+    "express-session": "^1.15.6",
     "jquery": "^3.3.1",
     "pug": "^2.0.3"
   }

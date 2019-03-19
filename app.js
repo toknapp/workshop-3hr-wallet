@@ -1,5 +1,6 @@
 const express = require('express')
 const formidable = require('express-formidable')
+const session = require('express-session')
 
 const app = express()
 const port = 3000
@@ -16,12 +17,12 @@ const API_PASSPHRASE = 'vrg4DSpZUgwQwSlc9kJkiPJHmPwCvIeDEh7IcjbXoJE'
 const API_OAUTH_ID = 'cyJqUWANySJXmu37FUKTD7M5x7F7Rz4W6LzRIkjF'
 const API_OAUTH_SECRET = '6cGjSJYAFORez2UxYSeYuJDzGCyS4o5nPAwq9X0gs2cmJbLTCsuxHPtYZSdCmFYibglYOW7lRwHJ8pKz5neqgn0XinQIp9i2ge5WZf3XeB7mIzBpJNTLFu2cXEQWO2tP'
 
-const { UpvestTenancyAPI } = require('@upvest/tenancy-api');
-const { UpvestClienteleAPI } = require('@upvest/clientele-api');
+const { UpvestTenancyAPI } = require('@upvest/tenancy-api')
+const { UpvestClienteleAPI } = require('@upvest/clientele-api')
 
 const tenancy = new UpvestTenancyAPI(
   API_BASEURL, API_KEY, API_SECRET, API_PASSPHRASE
-);
+)
 
 // Main application
 app.set('view engine', 'pug')
@@ -30,6 +31,12 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'))
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'))
 
 app.use(formidable())
+
+app.use(session({
+  secret: 'sup3rs3cr3t',
+  resave: false,
+  saveUninitialized: false
+}))
 
 app.get('/', (req, res) => {
     res.render('index')
@@ -67,14 +74,14 @@ app.post('/login', async(req, res) => {
 
     const clientele = new UpvestClienteleAPI(
         API_BASEURL, API_OAUTH_ID, API_OAUTH_SECRET,
-        username, password
-    );
+        username, password,
+    )
 
     const echo = await clientele.echo('foobar')
 
-    console.log('Echo endpoint said:', echo)
+    req.session.oauth_token = await clientele.getCachedToken()
 
-    res.render('login')
+    res.redirect('/wallets')
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

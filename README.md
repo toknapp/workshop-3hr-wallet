@@ -38,3 +38,9 @@ touch views/signup.pug
 ```
 
 ## Step 5 -- Clientele API, echo
+
+## Step 6 -- Login, sessions
+
+```
+npm install express-session --save
+```
