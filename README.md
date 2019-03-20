@@ -44,3 +44,9 @@ touch views/signup.pug
 ```
 npm install express-session --save
 ```
+
+## Step 7 -- Read/create wallets
+
+## Step 8 -- Wallet view
+
+## Step 9 -- Send transactions
