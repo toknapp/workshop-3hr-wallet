@@ -41,9 +41,9 @@ The sign up renders a Pug template for signing up. When the user makes a request
 
 ## Step 5 -- Clientele API, echo
 
-If you take a look at the `app.post('/login', ...)` function, you will see that we use the connection object for the `clientele` API. We test the connection object by requesting the API to sign our payload `foobar` which we send as data. The signgin request happens via the `echo` method.
+If you take a look at the `app.post('/login', ...)` function, you will see that we use the connection object `UpvestClienteleAPI` for the `clientele` API. We verify the authentication for the API key works by requesting the API to echo back our payload `foobar` which we send as data. The echoing request happens via the `echo` method.
 
-If we get a successful signed resonse from the API, we can be sure that the connection has been set up correctly.
+If we get a successful echo response from the API, we can be sure that the authentication is correct.
 
 ## Step 6 -- Login, sessions
 
@@ -55,18 +55,18 @@ In order to store the login session, we use `express-session` which you can inst
 npm install express-session --save
 ```
 
-Now we have the `express-session` functionality, we can request the cached session token from the `clientele` API. This token is stored in the `req.session.oauth_token` as the returned token follows the OAuth2 standard.
+Now we have the `express-session` functionality, we can request the cached session token from the `clientele` API. This token is stored in the `req.session.oauth_token` for later use.
 
 Everytime the user initiates a new request, we will first check if the `oauth_token` is present. If not, we redirect the user back to the `/login` page in order to identify himself.
 
 ## Step 7 -- Read/create wallets
 
 Reading wallets happens via `clientele.wallets.list()` - provides overview of all wallets for a user.
-Creating wallets happens via `clientele.wallets.create(asset_id, password, type)`.
+Creating wallets happens via `clientele.wallets.create(asset_id, password)`.
 
 ## Step 8 -- Wallet view
 
-The wallet view can be requested by using the `clientele` SDK by passing the ID of the wallet to retrieve. The wallet view provides an overview of all funds it holds and its corresponding addresses.
+The wallet view can be requested by using the `clientele` SDK by passing the ID of the wallet to retrieve. The wallet view provides an overview of all assets it holds and its corresponding addresses.
 
 ```
 clientele.wallets.retrieve(wallet_id)
@@ -79,9 +79,9 @@ More information regarding the data in the response object can be found in the [
 Sending a transaction is handled by the `app.post('/wallet/:wallet_id'` function which accepts a wallet ID as parameter in its request URI.
 
 The following data is required for sending a transaction from the user's wallet:
-- `walletId`: Wallet ID of wallet to be used for transaction (from request URI).
-- `password`: User his wallet's password.
-- `recipient`: Address to send the funds to.
+- `wallet_id`: Wallet ID of wallet to be used for transaction (from request URI).
+- `password`: Password of user its wallet.
+- `recipient`: Address to send the asset to.
 - `assetId`: Which type of asset will be transfered (Ether, ...).
-- `quantity`: Amount of funds to transfer.
+- `quantity`: Amount of particular asset to transfer.
 - `fee`: Transaction fee to be added to transaction (for including the transaction in blockchain). Currently, fixed at `41180000000000`.
