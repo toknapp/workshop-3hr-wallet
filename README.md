@@ -41,7 +41,7 @@ The sign up renders a Pug template for signing up. When the user makes a request
 
 ## Step 5 -- Clientele API, echo
 
-If you take a look at the `app.post('/login', ...)` function, you will see that we use the connection object `UpvestClienteleAPI` for the `clientele` API. We verify the authentication for the API key works by requesting the API to echo back our payload `foobar` which we send as data. The echoing request happens via the `echo` method.
+If you take a look at the `app.post('/login', ...)` function, you will see that we use the connection object `UpvestClienteleAPI` for the `clientele` API. We verify the authentication for the API key works correctly by requesting the API to echo back our payload `foobar` which we send as data. The echoing request happens via the `echo` method.
 
 If we get a successful echo response from the API, we can be sure that the authentication is correct.
 
@@ -80,8 +80,8 @@ Sending a transaction is handled by the `app.post('/wallet/:wallet_id'` function
 
 The following data is required for sending a transaction from the user's wallet:
 - `wallet_id`: Wallet ID of wallet to be used for transaction (from request URI).
-- `password`: Password of user its wallet.
+- `password`: Password of user his wallet.
 - `recipient`: Address to send the asset to.
-- `assetId`: Which type of asset will be transfered (Ether, ...).
+- `asset_id`: Which type of asset will be transfered (Ether, ...).
 - `quantity`: Amount of particular asset to transfer.
 - `fee`: Transaction fee to be added to transaction (for including the transaction in blockchain). Currently, fixed at `41180000000000`.
