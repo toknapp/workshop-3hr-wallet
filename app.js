@@ -84,6 +84,19 @@ app.post('/login', async(req, res) => {
     res.redirect('/wallets')
 })
 
+app.get('/users', async(req, res) => {
+    const tenancy = new UpvestTenancyAPI(
+        API_BASEURL, API_KEY, API_SECRET, API_PASSPHRASE
+    )
+
+    var users = []
+    for await (const user of tenancy.users.list()) {
+        users.push(user)
+    }
+
+    res.render('users', {'users': users})
+})
+
 app.get('/wallets', async(req, res) => {
     const token = req.session.oauth_token || false
 
@@ -174,4 +187,4 @@ app.post('/wallet/:wallet_id', async(req, res) => {
     })
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example Upvest app listening on port ${port}!`))

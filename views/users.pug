@@ -1,0 +1,14 @@
+extends index.pug
+
+block content
+  h2 Managed Users
+
+  table(border='1')
+    tr
+      th Username
+      th Wallets
+
+    each user in users
+      tr
+        td= user.username
+        td= user.wallets[0] ? `${user.wallets[0].status} - ${user.wallets[0].address}` : 'No wallets'
