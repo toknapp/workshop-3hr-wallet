@@ -80,7 +80,7 @@ Sending a transaction is handled by the `app.post('/wallet/:wallet_id'` function
 
 The following data is required for sending a transaction from the user's wallet:
 - `wallet_id`: Wallet ID of wallet to be used for transaction (from request URI).
-- `password`: Password of user his wallet.
+- `password`: Password user has set to unlock his wallet.
 - `recipient`: Address to send the asset to.
 - `asset_id`: Which type of asset will be transfered (Ether, ...).
 - `quantity`: Amount of particular asset to transfer.
